@@ -1,0 +1,14 @@
+name: MLOps Pipeline
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: pip install -r requirements.txt
+      - run: python Validation.py
+      - run: python train.py
+      - run: pytest test_pipeline.py -v
